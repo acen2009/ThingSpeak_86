@@ -28,7 +28,7 @@
 // If you're using a wi-fi shield (http://www.arduino.cc/en/Main/ArduinoWiFiShield), uncomment the line below
 // ***********************************************************************************************************
 //#define USE_WIFI_SHIELD
-#ifdef ARDUINO_ARCH_AVR
+#if defined (ARDUINO_ARCH_AVR) || defined (_86DUINO)
 
   #ifdef ARDUINO_AVR_YUN
     #include "YunClient.h"
@@ -83,7 +83,7 @@ unsigned long myChannelNumber = 31461;
 const char * myReadAPIKey = "NKX4Z5JGO4M5I18A";
 
 void setup() {
-  #if defined(ARDUINO_ARCH_AVR) || defined(ARDUINO_ARCH_ESP8266)
+  #if defined(ARDUINO_ARCH_AVR) || defined(ARDUINO_ARCH_ESP8266) || defined (_86DUINO)
     Serial.begin(9600);
     #ifdef ARDUINO_AVR_YUN
       Bridge.begin();
@@ -102,7 +102,7 @@ void setup() {
 void loop() {
   // Read the latest value from field 1 of channel 31461
   float voltage = ThingSpeak.readFloatField(myChannelNumber, 1, myReadAPIKey);
-  #if defined(ARDUINO_ARCH_AVR) || defined(ARDUINO_ARCH_ESP8266)
+  #if defined(ARDUINO_ARCH_AVR) || defined(ARDUINO_ARCH_ESP8266) || defined (_86DUINO)
     Serial.print("Latest voltage is: "); 
     Serial.print(voltage);
     Serial.println("V"); 

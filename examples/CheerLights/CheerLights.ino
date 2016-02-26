@@ -34,7 +34,7 @@ int pinRed = 9;
 int pinGreen = 6;
 int pinBlue = 5;
 
-#ifdef ARDUINO_ARCH_AVR
+#if defined (ARDUINO_ARCH_AVR) || defined (_86DUINO)
   #ifdef ARDUINO_AVR_YUN
     #include "YunClient.h"
     YunClient client;
@@ -80,7 +80,7 @@ int pinBlue = 5;
 unsigned long cheerLightsChannelNumber = 1417;
 
 void setup() {
-  #if defined(ARDUINO_ARCH_AVR) || defined(ARDUINO_ARCH_ESP8266)
+  #if defined(ARDUINO_ARCH_AVR) || defined(ARDUINO_ARCH_ESP8266) || defined (_86DUINO)
     #ifdef ARDUINO_AVR_YUN
       Bridge.begin();
     #else
@@ -94,7 +94,7 @@ void setup() {
   
   ThingSpeak.begin(client);
 
-  #if defined(ARDUINO_ARCH_AVR) || defined(ARDUINO_ARCH_ESP8266)
+  #if defined(ARDUINO_ARCH_AVR) || defined(ARDUINO_ARCH_ESP8266) || defined (_86DUINO)
       pinMode(pinRed,OUTPUT);
       pinMode(pinGreen,OUTPUT);
       pinMode(pinBlue,OUTPUT);
@@ -137,7 +137,7 @@ void setColor(String color)
     {
       // When it matches, look up the RGB values for that color in the table,
       // and write the red, green, and blue values.
-      #if defined(ARDUINO_ARCH_AVR) || defined(ARDUINO_ARCH_ESP8266)
+      #if defined(ARDUINO_ARCH_AVR) || defined(ARDUINO_ARCH_ESP8266) || defined (_86DUINO)
         analogWrite(pinRed,colorRGB[iColor][0]);
         analogWrite(pinGreen,colorRGB[iColor][1]);
         analogWrite(pinBlue,colorRGB[iColor][2]);

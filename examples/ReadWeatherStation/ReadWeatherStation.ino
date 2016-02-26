@@ -26,7 +26,7 @@
 // If you're using a wi-fi shield (http://www.arduino.cc/en/Main/ArduinoWiFiShield), uncomment the line below
 // ***********************************************************************************************************
 //#define USE_WIFI_SHIELD
-#ifdef ARDUINO_ARCH_AVR
+#if defined (ARDUINO_ARCH_AVR) || defined (_86DUINO)
 
   #ifdef ARDUINO_AVR_YUN
     #include "YunClient.h"
@@ -80,7 +80,7 @@
 unsigned long weatherStationChannelNumber = 12397;
 
 void setup() {
-  #if defined(ARDUINO_ARCH_AVR) || defined(ARDUINO_ARCH_ESP8266)
+  #if defined(ARDUINO_ARCH_AVR) || defined(ARDUINO_ARCH_ESP8266) || defined (_86DUINO)
     Serial.begin(9600);
     #ifdef ARDUINO_AVR_YUN
       Bridge.begin();
@@ -104,7 +104,7 @@ void loop() {
   float rainfall = ThingSpeak.readFloatField(weatherStationChannelNumber,5);
   float pressure = ThingSpeak.readFloatField(weatherStationChannelNumber,6);
 
-  #if defined(ARDUINO_ARCH_AVR) || defined(ARDUINO_ARCH_ESP8266)
+  #if defined(ARDUINO_ARCH_AVR) || defined(ARDUINO_ARCH_ESP8266) || defined (_86DUINO)
     Serial.println("======================================"); 
     Serial.println("Current weather conditions in Natick: "); 
     Serial.print(temperature);
