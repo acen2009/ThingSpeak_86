@@ -79,7 +79,7 @@
         extern char *dtostrf (double val, signed char width, unsigned char prec, char *sout);
     #endif
 #else
-	#if defined(ARDUINO_ARCH_AVR) || defined(ARDUINO_ARCH_ESP8266)
+	#if defined(ARDUINO_ARCH_AVR) || defined(ARDUINO_ARCH_ESP8266) || defined (_86DUINO)
 	  #include "Arduino.h"
 	  #include <Client.h>
 	#else
@@ -91,7 +91,7 @@
 #define THINGSPEAK_IPADDRESS IPAddress(184,106,153,149)
 #define THINGSPEAK_PORT_NUMBER 80
 
-#ifdef ARDUINO_ARCH_AVR
+#if defined (ARDUINO_ARCH_AVR) || defined (_86DUINO)
     #ifdef ARDUINO_AVR_YUN
         #define TS_USER_AGENT "tslib-arduino/1.0 (arduino yun)"
     #else
